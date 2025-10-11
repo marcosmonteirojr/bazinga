@@ -10,4 +10,7 @@ class Categories extends Model
     'name',
     'description'
    ];
+   public function actions(){
+     return $this->hasTo(Actions::class);
+   }
 }
