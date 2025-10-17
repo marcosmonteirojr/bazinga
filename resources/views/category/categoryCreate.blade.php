@@ -17,11 +17,11 @@
     <legend>Adicionar Categoria</legend>
     <div class="mb-3">
         <label for="disableTextInput" class="form-label">Nome</label>
-        <input type="text" id="disableTextInput" name="name" class="form-control">
+        <input type="text" id="disableTextInput" name="name" class="form-control" value="{{old('name')}}">
     </div>
      <div class="mb-3">
         <label for="disableTextInput" class="form-label">Descrição</label>
-        <input type="text" id="disableTextInput" name="description" class="form-control">
+        <input type="text" id="disableTextInput" name="description" class="form-control" value="{{old('description')}}">
     </div>
     <button type="submit" class="btn btn-primary">Salvar</button>
    
