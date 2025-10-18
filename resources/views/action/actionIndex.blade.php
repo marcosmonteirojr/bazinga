@@ -19,7 +19,7 @@
       <td>{{$at->description}}</td>
       <td>{{$at->points}}</td>
       <td>{{$at->categories->name}}</td>
-      <td><a href="{{--route('category.edit', $cat->id)--}}"><button type="button" class="btn btn-success" hres>Editar</button></td>
+      <td><a href="{{route('action.edit', $at->id)}}"><button type="button" class="btn btn-success" hres>Editar</button></td>
       <td><a href="{{--route('category.show', $cat->id)--}}"><button type="button" class="btn btn-success" hres>Mostrar</button></td>
     </tr>
     @endforeach

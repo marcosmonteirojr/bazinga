@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actions extends Model
 {
-    protected $filable=[
+    protected $fillable=[
         'title',
         'description',
         'category_id',

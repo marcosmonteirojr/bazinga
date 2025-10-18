@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\{Actions, Categories};
+use Illuminate\Support\Facades\Validator;
 class ActionController extends Controller
 {
     /**
@@ -21,7 +22,9 @@ class ActionController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Categories::all();
+        //dd($categories);
+        return view('action/actionCreate', compact('categories'));
     }
 
     /**
@@ -29,7 +32,36 @@ class ActionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->except(['_token']));
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required|max:30|min:3',
+                'description' => 'required|min:7',
+                'points' => 'required|numeric'
+            ],
+            [
+                'title.required' => 'O nome deve ser preenchido',
+                'title.max' => 'O tamanho máximo é 30 caracteres',
+                'title.min' => 'O tamanho mínimo é 3 caracteres',
+                'description.required' => 'A descrição deve ser preenchida',
+                'description.min' => 'A descrição deve ter no mínimo 7 caracteres',
+                'points.numeric'=>'A pontuação deve ser um número'
+            ]
+        );
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        } else {
+           
+            $create = Actions::create($request->except(['_token']));
+            if ($create) {
+                return redirect()->route('action.index');
+            } else {
+                return redirect()->back()->with('message', 'Erro na insercao');
+            }
+        }
     }
 
     /**
@@ -45,7 +77,11 @@ class ActionController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $action = Actions::findOrFail($id);
+        $categories = Categories::all();
+
+        return view("action/actionEdit", compact('action','categories'));
+
     }
 
     /**
