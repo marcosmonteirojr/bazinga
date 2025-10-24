@@ -24,7 +24,7 @@ class ActionController extends Controller
     {
         $categories = Categories::all();
         if (empty($categories)){
-            echo "oi";
+          
             return redirect()->back()->with('message', 'Erro na insercao');
 
         }
@@ -96,7 +96,13 @@ class ActionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $action = Actions::findOrFail($id);
+        $update = $action->update($request->except(['_token', '_method']));
+        if ($update) {
+            return redirect()->route('action.index');
+        } else {
+            return redirect()->back()->with('message', 'Erro na atualizacao');
+        }
     }
 
     /**
