@@ -15,4 +15,10 @@ class Actions extends Model
     public function categories(){
         return $this->belongsTo(Categories::class, 'category_id','id');
     }
+     public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_actions', 'action_id', 'user_id')
+                    ->withPivot('quantity', 'date')
+                    ->withTimestamps();
+    }
 }
