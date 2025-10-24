@@ -89,7 +89,35 @@ class ActionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $validate = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required|max:30|min:3',
+                'description' => 'required|min:7',
+                'points' => 'required|numeric'
+            ],
+            [
+                'title.required' => 'O nome deve ser preenchido',
+                'title.max' => 'O tamanho máximo é 30 caracteres',
+                'title.min' => 'O tamanho mínimo é 3 caracteres',
+                'description.required' => 'A descrição deve ser preenchida',
+                'description.min' => 'A descrição deve ter no mínimo 7 caracteres',
+                'points.numeric'=>'A pontuação deve ser um número'
+            ]
+        );
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        } else {
+           $action = Actions::findOrFail($id);
+            $update = $action->update($request->except(['_token', '_method']));
+            if ($update) {
+                return redirect()->route('action.index');
+            } else {
+                return redirect()->back()->with('message', 'Erro na insercao');
+            }
+        }
     }
 
     /**

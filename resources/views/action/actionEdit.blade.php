@@ -12,9 +12,9 @@
     </ul>
 </div>
 @endif
-<form action="{{--route('action.update')--}}" method="POST">
+<form action="{{route('action.update', $action->id)}}" method="POST">
 @csrf
-@PUT
+@method('PUT')
     <legend>Editar Ação</legend>
     <div class="mb-3">
         <label for="disableTextInput" class="form-label">Titulo</label>
