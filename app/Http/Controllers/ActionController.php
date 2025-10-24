@@ -23,6 +23,11 @@ class ActionController extends Controller
     public function create()
     {
         $categories = Categories::all();
+        if (empty($categories)){
+            echo "oi";
+            return redirect()->back()->with('message', 'Erro na insercao');
+
+        }
         //dd($categories);
         return view('action/actionCreate', compact('categories'));
     }
@@ -77,10 +82,12 @@ class ActionController extends Controller
      */
     public function edit(string $id)
     {
+        
         $action = Actions::findOrFail($id);
         $categories = Categories::all();
-
-        return view("action/actionEdit", compact('action','categories'));
+        $category_id = Categories::findOrFail($action->category_id);
+      
+        return view("action/actionEdit", compact('action','categories','category_id'));
 
     }
 
@@ -89,7 +96,14 @@ class ActionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+       // dd($request);
+        $action = Actions::findOrFail($id);
+        $update = $action->update($request->except(['_token', '_method']));
+        if ($update) {
+            return redirect()->route('action.index');
+        } else {
+            return redirect()->back()->with('message', 'Erro na atualizacao');
+        }
     }
 
     /**

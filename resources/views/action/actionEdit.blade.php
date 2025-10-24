@@ -4,6 +4,7 @@
     {{session()->get('message')}}
 @endif
 @if($errors->any())
+
 <div class="alert alert-danger">
     <ul>
         @foreach($errors->all() as $error)
@@ -12,9 +13,9 @@
     </ul>
 </div>
 @endif
-<form action="{{--route('action.update')--}}" method="POST">
+<form action="{{route('action.update',$action->id)}}" method="POST">
 @csrf
-@PUT
+@method('PUT')
     <legend>Editar Ação</legend>
     <div class="mb-3">
         <label for="disableTextInput" class="form-label">Titulo</label>
@@ -24,9 +25,10 @@
         <label for="disableTextInput" class="form-label">Descrição</label>
         <input type="text" id="disableTextInput" name="description" class="form-control" value="{{$action->description}}">
     </div>
+
      <label for="categoria">Escolha uma Categoria:</label>
         <select class="form-select" aria-label="Default select example" name="category_id">
-          <option value="">--Selecione--</option>
+          <option value="{{$category_id->id}}">{{$category_id->name}}</option>
           @foreach($categories as $cat)
             <option value="{{$cat->id}}">{{$cat->name}}</option>
           @endforeach
