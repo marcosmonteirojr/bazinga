@@ -41,13 +41,13 @@ class ActionController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'title' => 'required|max:30|min:3',
+                'title' => 'required|max:50|min:3',
                 'description' => 'required|min:7',
-                'points' => 'required|numeric'
+                'points' => 'required|numeric|max:10|min:1'
             ],
             [
                 'title.required' => 'O nome deve ser preenchido',
-                'title.max' => 'O tamanho máximo é 30 caracteres',
+                'title.max' => 'O tamanho máximo é 50 caracteres',
                 'title.min' => 'O tamanho mínimo é 3 caracteres',
                 'description.required' => 'A descrição deve ser preenchida',
                 'description.min' => 'A descrição deve ter no mínimo 7 caracteres',

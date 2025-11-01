@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserActions;
+use App\Models\{UserActions, User, Actions};
 use Illuminate\Http\Request;
 
 class UserActionsController extends Controller
@@ -22,7 +22,12 @@ class UserActionsController extends Controller
      */
     public function create()
     {
-        //
+        //modificar para que retorne o usuario logado
+        //para que o proprio usuario realize o cadastro
+        $user=User::all();
+        $actions=Actions::all();
+        return view('userAction/userActionCreate', compact('user', 'actions'));
+
     }
 
     /**
