@@ -35,7 +35,20 @@ class UserActionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'user'=>'required',
+            'action'=>'required',
+            'quantity'=>'required|integer|min:1',
+            'date' => 'date'
+        ]);
+        
+      UserActions::create([
+        'user_id'=>$request->user,
+        'action_id'=>$request->action,
+        'quantity' => $request->quantity,
+        'date'=>$request->date
+      ]);
+      return redirect()->route('useraction.index')->with('success', 'Ação do usuário registrada com sucesso!');
     }
 
     /**
