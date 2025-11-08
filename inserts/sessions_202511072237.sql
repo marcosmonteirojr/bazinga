@@ -1,0 +1,2 @@
+INSERT INTO bazinga.sessions (id,user_id,ip_address,user_agent,payload,last_activity) VALUES
+	 ('5psZvYzDpN4AnLcZV8Fly9AGEpYNm3FBx3xdw2dl',NULL,'127.0.0.1','Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36','YTozOntzOjY6Il90b2tlbiI7czo0MDoiM1p0MnBRU1M1SHNWd1ZGRW9nYkhoWlJXTjdtSVZMWm5IUnhaQ0ZQMSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jYXRlZ29yeSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=',1762562619);
