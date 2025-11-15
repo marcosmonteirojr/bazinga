@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{UserActions, User, Actions};
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 
 class UserActionsController extends Controller
 {
@@ -62,17 +63,35 @@ class UserActionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(UserActions $userActions)
+    public function edit($id)
     {
-        //
+       $useractions= UserActions::findOrFail($id);//
+       //dd($useractions);
+       $user=User::findOrFail($useractions->user_id);
+       $users = User::all();//select * from user
+       $action = Actions::findOrFail($useractions->action_id);
+       $actions = Actions::all();
+       return view('userAction/userActionEdit', compact('useractions', 'users', 'actions', 'user', 'action'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserActions $userActions)
+    public function update(Request $request, $id)
     {
-        //
+       // dd($request);
+       $request->validate([
+        'user_id'=>'required',
+        'action_id'=>'required',
+        'quantity'=>'required|integer|min:1',
+        'date'=>'required|date'
+       ]);
+       $useraction = UserActions::findOrFail($id);
+       //dd($request->except(['_token', '_method']));
+       $useraction->update($request->except(['_token', '_method']));
+        
+       return redirect()->route('useraction.index')->with('success', 'Ação do usuário registrada com sucesso!');
     }
 
     /**
